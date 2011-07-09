@@ -27,7 +27,7 @@ class SimpleCalendarWidget extends CWidget {
     
     public function run() {
         $this->registerScripts();
-        $this->render('simple-calendar-widget');
+        $this->render('simple-calendar');
     }
     
     protected function registerScripts() {
@@ -65,7 +65,7 @@ class SimpleCalendarWidget extends CWidget {
         if(is_numeric($value) && $value > 0) {
             $this->_year = $value;
         } else {
-            throw new Exception(Yii::t('calendar-widget', 'Invalid value for Year. It must be a non-negative year'));
+            throw new Exception(Yii::t('simple-calendar', 'Invalid value for Year. It must be a non-negative year'));
         }
         
     }
@@ -77,7 +77,9 @@ class SimpleCalendarWidget extends CWidget {
                 $this->day = date('j');
             }
         } else {
-            throw new Exception(Yii::t('calendar-widget', 'Invalid value for month. Please use a value between 1 and 12.'));
+            throw new Exception(
+                Yii::t('simple-calendar', 'Invalid value for month. Please use a value between 1 and 12.')
+            );
         }
     }
     
@@ -86,10 +88,16 @@ class SimpleCalendarWidget extends CWidget {
             if($this->dayIsInCurrentMonth($value)) {
                 $this->_day = $value;
             } else {
-                throw new Exception(Yii::t('calendar-widget', 'Invalid value for day. For the specified month, please user a value between 1 and '.$this->getDaysInCurrentMonth()));
+                throw new Exception(
+                    Yii::t(
+                        'simple-calendar', 
+                        'Invalid value for day. For the specified month, please user a value between 1 and {daysInCurrentMonth}.', 
+                        array('{daysInCurrentMonth}' => $this->getDaysInCurrentMonth())
+                    )
+                );
             }
         } else {
-            throw new Exception(Yii::t('calendar-widget', 'Invalid value for day.'));
+            throw new Exception(Yii::t('simple-calendar', 'Invalid value for day.'));
         }
     }
     
