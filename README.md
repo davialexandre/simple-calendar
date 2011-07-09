@@ -15,9 +15,11 @@ To use it, add the following to your view:
     <?php $this->widget('ext.simple-calendar.SimpleCalendarWidget'); ?>
 
 This will render a calendar where each of the days displayed is a link in the following format:
+
 http://example.com/current_url?month=current_month&year=current_year&day=select_day
 
 The previous and next month links are created exactly the same way:
+
 http://example.com/current_url?month=current_month&year=current_year&day=last_day_of_the_month
 
 Using the query string parameters, you can get the selected date and use it wherever you need.
