@@ -14,10 +14,10 @@
     <tbody>
         <tr>
         <?php $daysStarted = false; $day = 1; ?>
-        <?php for($i = 1; $i <= $this->daysInMonth+$this->firstDayOfTheWeek; $i++): ?>
+        <?php for($i = 1; $i <= $this->daysInCurrentMonth+$this->firstDayOfTheWeek; $i++): ?>
             <?php if(!$daysStarted) $daysStarted = ($i == $this->firstDayOfTheWeek+1); ?>
             <td <?php if($day == $this->day) echo 'class="calendar-selected-day"'; ?>>
-                <?php if($daysStarted && $day <= $this->daysInMonth): ?>
+                <?php if($daysStarted && $day <= $this->daysInCurrentMonth): ?>
                     <?php echo CHtml::link($day, $this->getDayLink($day)); $day++; ?>
                 <?php endif; ?>
             </td>

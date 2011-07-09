@@ -2,9 +2,9 @@
 
 class SimpleCalendarWidget extends CWidget {
     
-    protected $_day     = null;
-    protected $_month   = null;
-    protected $_year    = null;
+    protected $_day             = null;
+    protected $_month           = null;
+    protected $_year            = null;
     
     public function init() {
         $this->initDate();
@@ -86,7 +86,7 @@ class SimpleCalendarWidget extends CWidget {
             if($this->dayIsInCurrentMonth($value)) {
                 $this->_day = $value;
             } else {
-                $day = 1;
+                throw new Exception(Yii::t('calendar-widget', 'Invalid value for day. For the specified month, please user a value between 1 and '.$this->getDaysInCurrentMonth()));
             }
         } else {
             throw new Exception(Yii::t('calendar-widget', 'Invalid value for day.'));
@@ -102,12 +102,20 @@ class SimpleCalendarWidget extends CWidget {
         return date('w', $firstDayTimestamp);
     }
     
-    public function getDaysInMonth() {
-        return cal_days_in_month(CAL_GREGORIAN, $this->month, $this->year);
+    public function getDaysInCurrentMonth() {
+        return $this->getDaysInMonth($this->month, $this->year);
+    }
+    
+    public function getDaysInMonth($month, $year) {
+        return cal_days_in_month(CAL_GREGORIAN, $month, $year);
     }
     
     public function getPreviousLink() {
-        return $this->getLink($this->previousYear, $this->previousMonth);
+        return $this->getLink(
+            $this->previousYear, 
+            $this->previousMonth, 
+            $this->getDaysInMonth($this->previousMonth, $this->previousYear)
+        );
     }
     
     public function getPreviousMonth() {
@@ -127,7 +135,11 @@ class SimpleCalendarWidget extends CWidget {
     }
     
     public function getNextLink() {
-        return $this->getLink($this->nextYear, $this->nextMonth);
+        return $this->getLink(
+            $this->nextYear, 
+            $this->nextMonth, 
+            $this->getDaysInMonth($this->nextMonth, $this->nextYear)
+        );
     }
     
     public function getNextMonth() {
@@ -169,7 +181,7 @@ class SimpleCalendarWidget extends CWidget {
     }
     
     private function dayIsInCurrentMonth($day) {
-        return $day >= 1 && $day <= $this->daysInMonth;
+        return $day >= 1 && $day <= $this->daysInCurrentMonth;
     }
 }
 
