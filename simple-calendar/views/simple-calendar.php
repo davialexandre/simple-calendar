@@ -1,6 +1,6 @@
 <table id="calendar">
     <thead>
-        <tr>
+        <tr class="month-year-row">
             <th><?php echo CHtml::link('<<', $this->previousLink); ?></th>
             <th colspan="5"><?php echo $this->monthName.', '.$this->year; ?></th>
             <th><?php echo CHtml::link('>>', $this->nextLink); ?></th>
