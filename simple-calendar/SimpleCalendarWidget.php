@@ -74,7 +74,7 @@ class SimpleCalendarWidget extends CWidget {
         if(is_numeric($value) && $value >= 1 && $value <= 12) {
             $this->_month = $value;
             if(!$this->dayIsInCurrentMonth($this->day)) {
-                $this->day = date('j');
+                $this->day = $this->getDaysInCurrentMonth();
             }
         } else {
             throw new Exception(
