@@ -1,9 +1,9 @@
 <table id="calendar">
     <thead>
         <tr class="month-year-row">
-            <th><?php echo CHtml::link('<<', $this->previousLink); ?></th>
+            <th class="previous-month"><?php echo CHtml::link('<<', $this->previousLink); ?></th>
             <th colspan="5"><?php echo $this->monthName.', '.$this->year; ?></th>
-            <th><?php echo CHtml::link('>>', $this->nextLink); ?></th>
+            <th class="next-month"><?php echo CHtml::link('>>', $this->nextLink); ?></th>
         </tr>
         <tr class="weekdays-row">
             <?php foreach(Yii::app()->locale->getWeekDayNames('narrow') as $weekDay): ?>
